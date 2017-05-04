@@ -1,0 +1,1 @@
+$ protoc --plugin=protoc-gen-grpc-java=../grpc-java/compiler/build/exe/java_plugin/protoc-gen-grpc-java --proto_path=src --grpc-java_out=src/main/java/   src/main/resources/proto/serverPush.proto

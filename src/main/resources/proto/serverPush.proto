@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.myob.serverpush.api";
+option java_outer_classname = "ServerPush";
+
+package serverpush;
+
+service Push {
+  rpc SayReady (PushRequest) returns (PushResponse) {}
+}
+
+message PushRequest {
+  string text = 1;
+}
+
+message PushResponse {
+  string message = 1;
+}
