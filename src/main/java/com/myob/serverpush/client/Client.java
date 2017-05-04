@@ -11,15 +11,15 @@ import org.slf4j.LoggerFactory;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-public class GRpcClient {
+public class Client {
 
-    private static final Logger logger = LoggerFactory.getLogger(GRpcClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(Client.class);
 
     private final ManagedChannel channel;
 
     private final PushGrpc.PushBlockingStub blockingStub;
 
-    public GRpcClient(String host, int port) {
+    public Client(String host, int port) {
         ManagedChannelBuilder<?> channelBuilder = ManagedChannelBuilder.forAddress(host, port).usePlaintext(true);
         channel = channelBuilder.build();
         blockingStub = PushGrpc.newBlockingStub(channel);
@@ -30,7 +30,7 @@ public class GRpcClient {
     }
 
     public static void main(String[] args) throws Exception {
-        GRpcClient client = new GRpcClient("localhost", 50051);
+        Client client = new Client("localhost", 50051);
         try {
             PushRequest request = PushRequest.newBuilder().setText("world").build();
             Iterator<PushResponse> it = client.blockingStub.sayReady(request);
