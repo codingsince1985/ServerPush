@@ -31,7 +31,7 @@ public final class PushGrpc {
   public static final io.grpc.MethodDescriptor<com.myob.serverpush.api.PushRequest,
       com.myob.serverpush.api.PushResponse> METHOD_SAY_READY =
       io.grpc.MethodDescriptor.<com.myob.serverpush.api.PushRequest, com.myob.serverpush.api.PushResponse>newBuilder()
-          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
           .setFullMethodName(generateFullMethodName(
               "serverpush.Push", "SayReady"))
           .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -78,7 +78,7 @@ public final class PushGrpc {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             METHOD_SAY_READY,
-            asyncUnaryCall(
+            asyncServerStreamingCall(
               new MethodHandlers<
                 com.myob.serverpush.api.PushRequest,
                 com.myob.serverpush.api.PushResponse>(
@@ -109,7 +109,7 @@ public final class PushGrpc {
      */
     public void sayReady(com.myob.serverpush.api.PushRequest request,
         io.grpc.stub.StreamObserver<com.myob.serverpush.api.PushResponse> responseObserver) {
-      asyncUnaryCall(
+      asyncServerStreamingCall(
           getChannel().newCall(METHOD_SAY_READY, getCallOptions()), request, responseObserver);
     }
   }
@@ -134,8 +134,9 @@ public final class PushGrpc {
 
     /**
      */
-    public com.myob.serverpush.api.PushResponse sayReady(com.myob.serverpush.api.PushRequest request) {
-      return blockingUnaryCall(
+    public java.util.Iterator<com.myob.serverpush.api.PushResponse> sayReady(
+        com.myob.serverpush.api.PushRequest request) {
+      return blockingServerStreamingCall(
           getChannel(), METHOD_SAY_READY, getCallOptions(), request);
     }
   }
@@ -156,14 +157,6 @@ public final class PushGrpc {
     protected PushFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new PushFutureStub(channel, callOptions);
-    }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<com.myob.serverpush.api.PushResponse> sayReady(
-        com.myob.serverpush.api.PushRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(METHOD_SAY_READY, getCallOptions()), request);
     }
   }
 

@@ -7,7 +7,7 @@ option java_outer_classname = "ServerPush";
 package serverpush;
 
 service Push {
-  rpc SayReady (PushRequest) returns (PushResponse) {}
+  rpc SayReady (PushRequest) returns (stream PushResponse) {}
 }
 
 message PushRequest {

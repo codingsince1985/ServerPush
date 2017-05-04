@@ -8,6 +8,7 @@ import io.grpc.ManagedChannelBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 public class GRpcClient {
@@ -32,8 +33,10 @@ public class GRpcClient {
         GRpcClient client = new GRpcClient("localhost", 50051);
         try {
             PushRequest request = PushRequest.newBuilder().setText("world").build();
-            PushResponse response = client.blockingStub.sayReady(request);
-            logger.info("Client Received: " + response.getMessage());
+            Iterator<PushResponse> it = client.blockingStub.sayReady(request);
+            while (it.hasNext()) {
+                logger.info("Client Received: " + it.next().getMessage());
+            }
         } finally {
             client.shutdown();
         }
